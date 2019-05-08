@@ -193,6 +193,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.video=true \
+    media.stagefright.thumbnail.prefer_hw_codecs=true \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 
 # Memory optimizations
