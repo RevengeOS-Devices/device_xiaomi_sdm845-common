@@ -226,6 +226,15 @@
         "0"
       ],
       "ResetOnInit": true
+    },
+    {
+      "Name": "UfsClkGateEnable",
+      "Path": "/sys/devices/platform/soc/1d84000.ufshc/clkgate_enable",
+      "Values": [
+        "0",
+        "1"
+      ],
+      "ResetOnInit": true
     }
   ],
   "Actions": [
@@ -294,6 +303,12 @@
       "Node": "LLCCBWMinFreq",
       "Duration": 0,
       "Value": "2597"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "UfsClkGateEnable",
+      "Duration": 0,
+      "Value": "0"
     },
     {
       "PowerHint": "LAUNCH",
@@ -386,6 +401,12 @@
       "Value": "1478400000"
     },
     {
+      "PowerHint": "LAUNCH",
+      "Node": "UfsClkGateEnable",
+      "Duration": 5000,
+      "Value": "0"
+    },
+    {
       "PowerHint": "CAMERA_LAUNCH",
       "Node": "CPUBigClusterMaxFreq",
       "Duration": 1000,
@@ -408,6 +429,12 @@
       "Node": "PMQoSCpuDmaLatency",
       "Duration": 1000,
       "Value": "44"
+    },
+    {
+      "PowerHint": "CAMERA_LAUNCH",
+      "Node": "UfsClkGateEnable",
+      "Duration": 1000,
+      "Value": "0"
     },
     {
       "PowerHint": "CAMERA_STREAMING",
