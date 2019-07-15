@@ -70,9 +70,6 @@ TARGET_USE_QTI_BT_STACK := true
 # Camera
 TARGET_USES_QTI_CAMERA_DEVICE := true
 
-# Charger Mode
-BOARD_CHARGER_ENABLE_SUSPEND := true
-
 # Enable dex pre-opt to speed up initial boot
 ifeq ($(HOST_OS),linux)
   ifeq ($(WITH_DEXPREOPT),)
