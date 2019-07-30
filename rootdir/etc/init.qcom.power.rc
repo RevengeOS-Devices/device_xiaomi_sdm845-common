@@ -250,8 +250,9 @@ on property:init.svc.recovery=running
 
 service vendor.charger /sbin/chargeonlymode
     class charger
-    group system graphics
-    seclabel u:r:healthd:s0
+    user system
+    group system graphics input
+    seclabel u:r:charger:s0
 
 service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
     class main
