@@ -533,26 +533,6 @@ on property:persist.vendor.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
 
 on property:sys.boot_completed=1
-    
-    # Set the default IRQ affinity to the silver cluster.
-    write /proc/irq/default_smp_affinity "f"
-
-    # Disable CAF task placement for Big Cores
-    write /proc/sys/kernel/sched_walt_rotate_big_tasks 0
-
-    # Setup EAS cpusets values for better load balancing
-    write /dev/cpuset/top-app/cpus "0-7"
-
-    # Since we are not using core rotator, lets load balance
-    write /dev/cpuset/foreground/cpus "0-3,6-7"
-    write /dev/cpuset/background/cpus "0-1"
-    write /dev/cpuset/system-background/cpus "0-3"
-
-    # For better screen off idle
-    write /dev/cpuset/restricted/cpus "0-3"
-
-    # Enable PowerHAL hint processing
-    setprop vendor.powerhal.init 1
 
     write /dev/kmsg "Boot completed "
 

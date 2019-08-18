@@ -111,8 +111,7 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     init.qti.qseecomd.sh \
     init.recovery.qcom.rc \
-    ueventd.qcom.rc \
-    init.power.rc
+    ueventd.qcom.rc
 
 # Context Hub
 PRODUCT_PACKAGES += \
