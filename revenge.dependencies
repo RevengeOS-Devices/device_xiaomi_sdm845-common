@@ -5,7 +5,8 @@
  		"revision": "reloaded"
  	},
  	{
- 		"repository": "vendor_xiaomi_sdm845",
+		"remote": "gitlab",
+ 		"repository": "ethan-halsall/vendor_xiaomi_sdm845",
  		"target_path": "vendor/xiaomi",
  		"revision": "r9.0-caf"
  	}
