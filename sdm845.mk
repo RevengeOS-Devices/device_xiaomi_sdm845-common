@@ -188,6 +188,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     org.ifaa.android.manager
 
+PRODUCT_BOOT_JARS += \
+    org.ifaa.android.manager
+
 # IMS
 PRODUCT_PACKAGES += \
     ims-ext-common
@@ -298,6 +301,9 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     telephony-ext
 
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # TextClassifier
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
@@ -340,6 +346,9 @@ PRODUCT_PACKAGES += \
 # WiFi Display
 PRODUCT_PACKAGES += \
     libnl
+
+PRODUCT_BOOT_JARS += \
+    WfdCommon
 
 # Setting vendor SPL
 VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
