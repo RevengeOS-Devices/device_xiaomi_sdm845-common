@@ -593,11 +593,10 @@ vendor/lib/rfsa/adsp/libhexagon_nn_skel.so
 # Peripheral manager
 vendor/bin/pm-proxy
 vendor/bin/pm-service
-vendor/bin/spdaemon
-vendor/lib64/libperipheral_client.so
-vendor/lib64/libspcom.so
 vendor/lib/libperipheral_client.so
 vendor/lib/libspcom.so
+vendor/lib64/libperipheral_client.so
+vendor/lib64/libspcom.so
 
 # Perf
 vendor/bin/hw/vendor.qti.hardware.perf@1.0-service
