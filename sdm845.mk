@@ -341,16 +341,7 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
-    libwifi-hal-qcom \
-    libwpa_client \
-    wificond \
-    wifilogd \
-    wpa_cli \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    android.hardware.wifi@1.0-service
 
 # WiFi Display
 PRODUCT_PACKAGES += \
