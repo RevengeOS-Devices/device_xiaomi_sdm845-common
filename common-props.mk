@@ -103,7 +103,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Boot
 PRODUCT_PROPERTY_OVERRIDES += \
-    sys.vendor.shutdown.waittime=500
+    sys.vendor.shutdown.waittime=500 \
+    ro.adb.secure=0
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
