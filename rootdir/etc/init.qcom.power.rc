@@ -268,3 +268,9 @@ service vendor.poweroffm64 /vendor/bin/poweroffm64
     class late_start
     oneshot
     seclabel u:r:poweroffm64:s0
+
+service iop-hal-2-0 /system/bin/true
+    disabled
+
+service perf-hal-2-0 /system/bin/true
+    disabled
