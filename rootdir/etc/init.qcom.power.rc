@@ -26,7 +26,6 @@
 #
 
 on early-init
-    write /proc/sys/kernel/sched_boost 1
 
 on init
     write /dev/stune/foreground/schedtune.sched_boost_no_override 1
@@ -194,25 +193,8 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "compute"
     write /sys/class/devfreq/soc:qcom,mincpubw/polling_interval 10
 
-    # Disable CAF task placement for Big Cores
-    write /proc/sys/kernel/sched_walt_rotate_big_tasks 0
-
-    # Setup EAS cpusets values for better load balancing
-    write /dev/cpuset/top-app/cpus "0-7"
-
-    # Since we are not using core rotator, lets load balance
-    write /dev/cpuset/foreground/cpus "0-3,6-7"
-    write /dev/cpuset/background/cpus "0-1"
-    write /dev/cpuset/system-background/cpus "0-3"
-
-    # For better screen off idle
-    write /dev/cpuset/restricted/cpus "0-3"
-
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
-
-    # Turn off scheduler boost at the end
-    write /proc/sys/kernel/sched_boost 0
 
     # Disable CPU Retention
     write /sys/module/lpm_levels/L3/cpu0/ret/idle_enabled "N"
@@ -240,12 +222,8 @@ on enable-low-power
     # Post-setup services
     setprop vendor.post_boot.parsed 1
 
-    #Enable suspend to idle mode to reduce latency during suspend/resume
-    write /sys/power/mem_sleep "s2idle"
-
-    # Enable Boost_No_Override
-    write /dev/stune/foreground/schedtune.sched_boost_no_override 1
-    write /dev/stune/top-app/schedtune.sched_boost_no_override 1
+    # Use the deepest CPU idle state for a few additional power savings if your kernel of choice now supports it;
+    write /sys/devices/system/cpu/cpuidle/use_deepest_state 1
 
 on property:sys.boot_completed=1
     trigger enable-low-power
