@@ -2,12 +2,12 @@
  		"remote": "github",
  		"repository": "ethan-halsall/Simple-Kernel",
  		"target_path": "kernel/xiaomi/sdm845",
- 		"revision": "reloaded"
+ 		"revision": "ten"
  	},
  	{
 		"remote": "gitlab",
  		"repository": "ethan-halsall/vendor_xiaomi_sdm845",
  		"target_path": "vendor/xiaomi",
- 		"revision": "r9.0-caf"
+ 		"revision": "r10.0"
  	}
  ]
