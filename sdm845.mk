@@ -339,11 +339,13 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
 
-# Thermal
+# Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service \
-    thermal.sdm845
+    android.hardware.thermal@2.0-service.dipper \
+
+# Thermal HAL config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json \
 
 # ThermalController app
 #PRODUCT_PACKAGES += \
