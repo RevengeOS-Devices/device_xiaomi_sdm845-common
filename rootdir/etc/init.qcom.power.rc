@@ -222,8 +222,8 @@ on enable-low-power
     # Post-setup services
     setprop vendor.post_boot.parsed 1
 
-    # Use the deepest CPU idle state for a few additional power savings if your kernel of choice now supports it;
-    write /sys/devices/system/cpu/cpuidle/use_deepest_state 1
+    # Enable auto deepest idle cluster state when screen is off (if kernel supports it)
+    write /sys/module/lpm_levels/parameters/cluster_deepest_state_auto "Y"
 
 on property:sys.boot_completed=1
     trigger enable-low-power
