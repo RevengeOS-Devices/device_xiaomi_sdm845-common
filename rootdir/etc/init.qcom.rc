@@ -72,6 +72,9 @@ on init
     chmod 0660 /dev/mi-camera-vendor2hal
     chmod 0660 /dev/mi-camera-hal2vendor
 
+    # Freezer setup
+    write /dev/freezer/frozen/freezer.killable 1
+
 on fs
     wait /dev/block/platform/soc/1d84000.ufshc
     symlink /dev/block/platform/soc/1d84000.ufshc /dev/block/bootdevice
