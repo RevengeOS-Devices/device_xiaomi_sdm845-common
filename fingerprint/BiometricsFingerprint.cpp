@@ -21,6 +21,7 @@
 
 #include <android-base/strings.h>
 #include <cutils/properties.h>
+#include <hardware/fingerprint.h>
 #include <hardware/hardware.h>
 #include <hardware/hw_auth_token.h>
 #include <inttypes.h>
@@ -271,15 +272,20 @@ fingerprint_device_t* getDeviceForVendor(const char* class_name) {
 
 fingerprint_device_t* getFingerprintDevice() {
     fingerprint_device_t* fp_device;
-    std::string vendor_modules[] = {"fpc", "goodix", "goodix_fod", "syna"};
 
-    for (const auto& vendor : vendor_modules) {
-        if ((fp_device = getDeviceForVendor(vendor.c_str())) == nullptr) {
-            ALOGE("Failed to load %s fingerprint module", vendor.c_str());
-            continue;
-        }
+    fp_device = getDeviceForVendor("fpc");
+    if (fp_device == nullptr) {
+        ALOGE("Failed to load fpc fingerprint module");
+    } else {
+        setFpVendorProp("fpc");
+        return fp_device;
+    }
 
-        setFpVendorProp(vendor.c_str());
+    fp_device = getDeviceForVendor("goodix");
+    if (fp_device == nullptr) {
+        ALOGE("Failed to load goodix fingerprint module");
+    } else {
+        setFpVendorProp("goodix");
         return fp_device;
     }
 
@@ -388,10 +394,6 @@ void BiometricsFingerprint::notify(const fingerprint_msg_t* msg) {
             }
             break;
     }
-}
-
-Return<int32_t> BiometricsFingerprint::extCmd(int32_t cmd, int32_t param) {
-    return mDevice->extCmd(mDevice, cmd, param);
 }
 
 }  // namespace implementation
