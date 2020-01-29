@@ -41,7 +41,7 @@ BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
 TARGET_KERNEL_ARCH := arm64
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-  KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-9.1/bin
+  KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-elf/bin
   TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-elf-
   TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
 endif
