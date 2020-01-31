@@ -39,6 +39,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <dirent.h>
 
 #include <linux/input.h>
 
@@ -56,10 +57,6 @@
 
 #ifndef SYSTEM_STATS_FILE
 #define SYSTEM_STATS_FILE "/sys/power/system_sleep/stats"
-#endif
-
-#ifndef TARGET_TAP_TO_WAKE_NODE
-#define TARGET_TAP_TO_WAKE_NODE "/dev/input/event3"
 #endif
 
 #define LINE_SIZE 128
@@ -102,10 +99,48 @@ struct stats_section system_sections[] = {
     { SYSTEM_STATES, "RPM Mode:cxsd", system_stats_labels, ARRAY_SIZE(system_stats_labels) },
 };
 
+int open_ts_input() {
+    int fd = -1;
+    DIR *dir = opendir("/dev/input");
+
+    if (dir != NULL) {
+        struct dirent *ent;
+
+        while ((ent = readdir(dir)) != NULL) {
+            if (ent->d_type == DT_CHR) {
+                char absolute_path[PATH_MAX] = {0};
+                char name[80] = {0};
+
+                strcpy(absolute_path, "/dev/input/");
+                strcat(absolute_path, ent->d_name);
+
+                fd = open(absolute_path, O_RDWR);
+                if (ioctl(fd, EVIOCGNAME(sizeof(name) - 1), &name) > 0) {
+                    if (strcmp(name, "atmel_mxt_ts") == 0 || strcmp(name, "fts") == 0 ||
+                            strcmp(name, "ft5x46") == 0 || strcmp(name, "synaptics_dsx") == 0 ||
+                            strcmp(name, "NVTCapacitiveTouchScreen") == 0)
+                        break;
+                }
+
+                close(fd);
+                fd = -1;
+            }
+        }
+
+        closedir(dir);
+    }
+
+    return fd;
+}
+
 void set_feature(feature_t feature, int state) {
     switch (feature) {
         case POWER_FEATURE_DOUBLE_TAP_TO_WAKE: {
-            int fd = open(TARGET_TAP_TO_WAKE_NODE, O_RDWR);
+            int fd = open_ts_input();
+            if (fd == -1) {
+                ALOGW("DT2W won't work because no supported touchscreen input devices were found");
+                return;
+            }
             struct input_event ev;
             ev.type = EV_SYN;
             ev.code = SYN_CONFIG;
