@@ -225,6 +225,7 @@ PRODUCT_ODM_PROPERTIES += \
 
 # RCS and IMS
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.wfc_avail_ovr=1 \
     persist.rcs.supported=0 \
     persist.vendor.ims.disableUserAgent=0
 
