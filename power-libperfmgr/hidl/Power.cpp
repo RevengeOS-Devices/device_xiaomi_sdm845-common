@@ -15,7 +15,11 @@
  */
 
 #define ATRACE_TAG (ATRACE_TAG_POWER | ATRACE_TAG_HAL)
-#define LOG_TAG "android.hardware.power@1.3-service.dipper-libperfmgr"
+#define LOG_TAG "android.hardware.power@1.3-service.xiaomi-libperfmgr"
+
+#include "Power.h"
+
+#include <mutex>
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -23,15 +27,11 @@
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
 
-#include <mutex>
-
 #include <utils/Log.h>
 #include <utils/Trace.h>
 
-#include "Power.h"
-#include "display-helper.h"
+#include "disp-power/display-helper.h"
 #include <linux/input.h>
-#include <dirent.h>
 
 constexpr int kWakeupModeOff = 4;
 constexpr int kWakeupModeOn = 5;
@@ -209,8 +209,9 @@ int open_ts_input() {
 
                 fd = open(absolute_path, O_RDWR);
                 if (ioctl(fd, EVIOCGNAME(sizeof(name) - 1), &name) > 0) {
-                    if (strcmp(name, "atmel_mxt_ts") == 0 || strcmp(name, "fts") == 0 ||
-                            strcmp(name, "ft5x46") == 0 || strcmp(name, "synaptics_dsx") == 0 ||
+                    if (strcmp(name, "atmel_mxt_ts") == 0 || strcmp(name, "fts_ts") == 0 ||
+                            strcmp(name, "fts") == 0 || strcmp(name, "ft5x46") == 0 ||
+                            strcmp(name, "synaptics_dsx") == 0 ||
                             strcmp(name, "NVTCapacitiveTouchScreen") == 0)
                         break;
                 }
@@ -368,13 +369,13 @@ Return<void> Power::debug(const hidl_handle &handle, const hidl_vec<hidl_string>
         int fd = handle->data[0];
 
         std::string buf(android::base::StringPrintf(
-            "HintManager Running: %s\n"
-            "VRMode: %s\n"
-            "CameraStreamingMode: %s\n"
-            "SustainedPerformanceMode: %s\n",
-            boolToString(mHintManager->IsRunning()), boolToString(mVRModeOn),
-            boolToString(mCameraStreamingMode),
-            boolToString(mSustainedPerfModeOn)));
+                "HintManager Running: %s\n"
+                "VRMode: %s\n"
+                "CameraStreamingMode: %s\n"
+                "SustainedPerformanceMode: %s\n",
+                boolToString(mHintManager->IsRunning()), boolToString(mVRModeOn),
+                boolToString(mCameraStreamingMode),
+                boolToString(mSustainedPerfModeOn)));
         // Dump nodes through libperfmgr
         mHintManager->DumpToFd(fd);
         if (!android::base::WriteStringToFd(buf, fd)) {
