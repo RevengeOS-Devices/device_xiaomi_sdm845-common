@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016, The CyanogenMod Project
- * Copyright (C) 2017, The LineageOS Project
+ * Copyright (C) 2017-2020, The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <time.h>
 #include <unistd.h>
 
 #include <string>
@@ -37,10 +36,10 @@
 
 #define ALPHABET_LEN 256
 
-#define BASEBAND_PART_PATH "/dev/block/bootdevice/by-name/modem"
-#define BASEBAND_VER_STR_START "QC_IMAGE_VERSION_STRING=MPSS.AT."
-#define BASEBAND_VER_STR_START_LEN 32
-#define BASEBAND_VER_BUF_LEN 255
+#define XBL_PART_PATH "/dev/block/bootdevice/by-name/xbl_a"
+#define TZ_VER_STR "QC_IMAGE_VERSION_STRING=TZ."
+#define TZ_VER_STR_LEN 27
+#define TZ_VER_BUF_LEN 255
 
 /* Boyer-Moore string search implementation from Wikipedia */
 
@@ -119,57 +118,58 @@ static char* bm_search(const char* str, size_t str_len, const char* pat, size_t 
     return NULL;
 }
 
-static int get_baseband_version(char *ver_str, size_t len) {
+static int get_info(char* str, size_t len, char* lookup_str, size_t lookup_str_len,
+                    char* part_path) {
     int ret = 0;
     int fd;
-    int baseband_size;
-    char *baseband_data = NULL;
-    char *offset = NULL;
+    off64_t size;
+    char* data = NULL;
+    char* offset = NULL;
 
-    fd = open(BASEBAND_PART_PATH, O_RDONLY);
+    fd = open(part_path, O_RDONLY);
     if (fd < 0) {
         ret = errno;
         goto err_ret;
     }
 
-    baseband_size = lseek64(fd, 0, SEEK_END);
-    if (baseband_size == -1) {
+    size = lseek64(fd, 0, SEEK_END);
+    if (size == -1) {
         ret = errno;
         goto err_fd_close;
     }
 
-    baseband_data = (char *) mmap(NULL, baseband_size, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (baseband_data == (char *)-1) {
+    data = (char*)mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (data == (char*)-1) {
         ret = errno;
         goto err_fd_close;
     }
 
-    /* Do Boyer-Moore search across BASEBAND data */
-    offset = bm_search(baseband_data, baseband_size, BASEBAND_VER_STR_START,
-            BASEBAND_VER_STR_START_LEN);
+    /* Do Boyer-Moore search across data */
+    offset = bm_search(data, size, lookup_str, lookup_str_len);
     if (offset != NULL) {
-        strncpy(ver_str, offset + BASEBAND_VER_STR_START_LEN, len);
+        snprintf(str, len, "%s", offset + lookup_str_len);
     } else {
         ret = -ENOENT;
     }
 
-    munmap(baseband_data, baseband_size);
+    munmap(data, size);
 err_fd_close:
     close(fd);
 err_ret:
     return ret;
 }
 
-/* verify_baseband("BASEBAND_VERSION", "BASEBAND_VERSION", ...) */
-Value * VerifyBasebandFn(const char *name, State *state,
+/* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
+Value* VerifyTrustZoneFn(const char* name, State* state,
                      const std::vector<std::unique_ptr<Expr>>& argv) {
-    char current_baseband_version[BASEBAND_VER_BUF_LEN];
+    char current_tz_version[TZ_VER_BUF_LEN];
     int ret;
 
-    ret = get_baseband_version(current_baseband_version, BASEBAND_VER_BUF_LEN);
+    ret = get_info(current_tz_version, TZ_VER_BUF_LEN, TZ_VER_STR, TZ_VER_STR_LEN,
+                   XBL_PART_PATH);
     if (ret) {
-        return ErrorAbort(state, kFreadFailure, "%s() failed to read current baseband version: %d",
-                name, ret);
+        return ErrorAbort(state, kFreadFailure,
+                          "%s() failed to read current TZ version: %d", name, ret);
     }
 
     std::vector<std::string> args;
@@ -178,9 +178,8 @@ Value * VerifyBasebandFn(const char *name, State *state,
     }
 
     ret = 0;
-    for (auto &baseband_version : args) {
-        if (strncmp(baseband_version.c_str(), current_baseband_version,
-                strlen(baseband_version.c_str())) == 0) {
+    for (auto &tz_version : args) {
+        if (strncmp(tz_version.c_str(), current_tz_version, tz_version.length()) <= 0) {
             ret = 1;
             break;
         }
@@ -190,5 +189,5 @@ Value * VerifyBasebandFn(const char *name, State *state,
 }
 
 void Register_librecovery_updater_xiaomi() {
-    RegisterFunction("xiaomi.verify_baseband", VerifyBasebandFn);
+    RegisterFunction("xiaomi.verify_trustzone", VerifyTrustZoneFn);
 }
