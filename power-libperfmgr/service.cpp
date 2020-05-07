@@ -21,9 +21,9 @@
 
 #include "Power.h"
 
+using android::OK;
 using android::sp;
 using android::status_t;
-using android::OK;
 
 // libhwbinder:
 using android::hardware::configureRpcThreadpool;
@@ -33,7 +33,7 @@ using android::hardware::joinRpcThreadpool;
 using android::hardware::power::V1_3::IPower;
 using android::hardware::power::V1_3::implementation::Power;
 
-int main(int /* argc */, char** /* argv */) {
+int main(int /* argc */, char ** /* argv */) {
     ALOGI("Power HAL Service 1.3 for Dipper is starting.");
 
     android::sp<IPower> service = new Power();
