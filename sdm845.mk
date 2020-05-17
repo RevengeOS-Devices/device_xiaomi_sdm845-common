@@ -171,8 +171,8 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libvulkan \
     memtrack.sdm845 \
-    vendor.display.config@1.7 \
-    vendor.display.config@1.7.vendor \
+    vendor.display.config@1.9 \
+    vendor.display.config@1.9.vendor \
     vendor.qti.hardware.display.allocator@1.0-service
 
 # DRM
