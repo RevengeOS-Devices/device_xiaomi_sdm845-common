@@ -95,11 +95,11 @@ public class ThermalService extends Service {
                 StackInfo focusedStack = mIActivityManager.getFocusedStackInfo();
                 if (focusedStack != null && focusedStack.topActivity != null) {
                     String foregroundApp = focusedStack.topActivity.getPackageName();
-                    mHandler.postDelayed(this, 500);
                     if (!foregroundApp.equals(mPreviousApp)) {
                         mThermalUtils.setThermalProfile(foregroundApp);
                         mPreviousApp = foregroundApp;
                     }
+                    mHandler.postDelayed(this, 5000);
                 }
             } catch (RemoteException ignored) {
             }
