@@ -155,7 +155,8 @@ PRODUCT_PACKAGES += \
 
 # Device-specific settings
 PRODUCT_PACKAGES += \
-    XiaomiParts
+    XiaomiParts \
+    PocoParts
 
 # Configure dex2oat
 PRODUCT_PROPERTY_OVERRIDES += \
