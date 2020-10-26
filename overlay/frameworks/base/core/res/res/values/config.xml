@@ -353,4 +353,9 @@
 
      <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
+
+     <!-- Biometric sensors-->
+     <string-array name="config_biometric_sensors">
+          <item>0:2:15</item>
+     </string-array>
 </resources>
