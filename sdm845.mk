@@ -172,13 +172,14 @@ PRODUCT_PACKAGES += \
     hwcomposer.sdm845 \
     libdisplayconfig \
     libdisplayconfig.vendor \
+    libdisplayconfig.qti \
     libqdMetaData \
     libqdMetaData.system \
     libtinyxml \
     libvulkan \
+    vendor.display.config@2.0 \
+    vendor.display.config@2.0.vendor \
     memtrack.sdm845 \
-    vendor.display.config@1.9 \
-    vendor.display.config@1.9.vendor \
     vendor.qti.hardware.display.allocator@1.0-service
 
 # DPM
