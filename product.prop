@@ -30,6 +30,9 @@ ro.kernel.ebpf.supported=true
 camera.disable_zsl_mode=true
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap
 
+# Cgroup 
+persist.device_config.use_cgroup_freezer=true
+
 # CNE
 persist.vendor.cne.feature=1
 
