@@ -16,3 +16,6 @@ type persist_camera_file, file_type, vendor_persist_type;
 
 # FPS Info
 type sysfs_fps, sysfs_type, fs_type;
+
+# Battery Saver
+type sysfs_battery_saver, fs_type, sysfs_type;
