@@ -378,4 +378,12 @@
         <item>com.google.android.gms/com.google.android.gms.nearby.messages.service.NearbyMessagesService</item>
         <item>com.google.android.gms/com.google.android.gms.nearby.discovery.service.DiscoveryService</item>
     </string-array>
+    
+        <!-- Flag indicating whether we should enable smart battery. -->
+    <bool name="config_smart_battery_available">true</bool>
+
+    <!-- SQLite -->
+    <string name="db_default_journal_mode">MEMORY</string>
+    <string name="db_default_sync_mode">OFF</string>
+    <string name="db_wal_sync_mode">OFF</string>
 </resources>
