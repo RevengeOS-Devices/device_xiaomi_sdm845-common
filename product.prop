@@ -1,3 +1,6 @@
+# Gboard
+ro.com.google.ime.kb_pad_port_b=1
+
 # LMKD
 ro.lmk.low=1001
 ro.lmk.medium=800
