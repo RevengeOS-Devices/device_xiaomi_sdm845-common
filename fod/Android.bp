@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2017-2021 The LineageOS Project
+// Copyright (C) 2019,2021 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,21 +14,23 @@
 // limitations under the License.
 
 cc_binary {
-    name: "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm845",
     relative_install_path: "hw",
     defaults: ["hidl_defaults"],
-    init_rc: ["android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm845.rc"],
-    vintf_fragments: ["android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm845.xml"],
-    srcs: ["service.cpp", "BiometricsFingerprint.cpp"],
+    name: "vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.xiaomi_sdm845",
+    init_rc: ["vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.xiaomi_sdm845.rc"],
+    vintf_fragments: ["vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.xiaomi_sdm845.xml"],
+    srcs: [
+        "service.cpp",
+        "FingerprintInscreen.cpp",
+    ],
+    vendor: true,
     shared_libs: [
         "libbase",
         "libhardware",
         "libhidlbase",
         "liblog",
         "libutils",
-        "libcutils",
-        "android.hardware.biometrics.fingerprint@2.1",
+        "vendor.lineage.biometrics.fingerprint.inscreen@1.0",
         "vendor.xiaomi.hardware.fingerprintextension@1.0",
     ],
-    proprietary: true,
 }
