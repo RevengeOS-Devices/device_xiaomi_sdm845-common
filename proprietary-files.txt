@@ -280,13 +280,15 @@ vendor/lib/libssd.so|020e0fa5d6ecf28125911d3bad4519556d2d9b31
 vendor/lib/libStDrvInt.so|daea5be20f666076d0f82262a9a8b46e4cc51158
 vendor/lib/libtzdrmgenprov.so|801f47e12d529189b2d30dd4f373ba267b250859
 
-# ESE
-vendor/bin/hw/vendor.qti.esepowermanager@1.0-service
-vendor/etc/init/vendor.qti.esepowermanager@1.0-service.rc
-vendor/lib64/hw/vendor.qti.esepowermanager@1.0-impl.so
-vendor/lib64/vendor.qti.esepowermanager@1.0.so
-vendor/lib/hw/vendor.qti.esepowermanager@1.0-impl.so
-vendor/lib/vendor.qti.esepowermanager@1.0.so
+# ESE - from OnePlus6 - RKQ1.201217.002/2107130217
+vendor/bin/hw/vendor.qti.esepowermanager@1.1-service|ae3e15534b0c8abd22f8a5e52a491df8c46bd0c2
+vendor/etc/init/vendor.qti.esepowermanager@1.1-service.rc|3c024c7135ec3dd8658624509ee61396a74f1ede
+vendor/lib/hw/vendor.qti.esepowermanager@1.1-impl.so|7f5adb335d12659d76fa13318b635e30ee67da6e
+vendor/lib/vendor.qti.esepowermanager@1.0.so|94f25d4c70dac7903000f4ea35af148377665ca6
+vendor/lib/vendor.qti.esepowermanager@1.1.so|f994ed607e87d2a3ad020edb38c05cea356d92ef
+vendor/lib64/hw/vendor.qti.esepowermanager@1.1-impl.so|17f648402c874e4f981caadd91438a525089e35d
+vendor/lib64/vendor.qti.esepowermanager@1.0.so|a114629809e67015a14e5e367c6fb374adaafbc2
+vendor/lib64/vendor.qti.esepowermanager@1.1.so|f111cf42439d28fe88d9ebf6b6a1c44b729a3194
 
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
@@ -565,7 +567,7 @@ vendor/lib64/libOmxSwVencMpeg4.so|4e1f32ccf976300e61944fa53a7a8d428c96e63f
 vendor/lib64/libOmxVpp.so|cdfaddccab74d1602831e4d7777b09d206c1d237
 vendor/lib64/libOmxWmaDec.so|25f63aec3ac27ef6411cee94f9dd9a2dabbdbca8
 
-# Peripheral manager - from OnePlus6 - RKQ1.201217.002-2107130217-release-keys
+# Peripheral manager - from OnePlus6 - RKQ1.201217.002/2107130217
 vendor/bin/pm-proxy|60aaf1854b8d1010e9d124518dd81bbc5ae072f7
 vendor/bin/pm-service|534d7152d9c134e8f4c59eec134e0951e0970be2
 vendor/lib/libperipheral_client.so|cb130e759ee4b6160cfafa1c35de93aa6522ef8d
@@ -824,12 +826,12 @@ vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
 vendor/lib/libthermalclient.so
 
-# Time services
--vendor/app/TimeService/TimeService.apk
-vendor/bin/time_daemon
-vendor/etc/init/init.time_daemon.rc
-vendor/lib64/libtime_genoff.so
-vendor/lib/libtime_genoff.so
+# Time services - from OnePlus6 - RKQ1.201217.002/2107130217
+-vendor/app/TimeService/TimeService.apk|fc62dd7314c5ce2e767008f80f5fee751b87b488
+vendor/bin/time_daemon|f58945c0d9c75aaf36a40676ff2737022e9dd38b
+vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
+vendor/lib/libtime_genoff.so|9f1e0fd1180207b3df81aa65c319b0d5a467d74c
+vendor/lib64/libtime_genoff.so|3f57de1aeb7aa113a0a579cebed85ab4405b9b49
 
 # Trusted Execution Environment connector - from OnePlus6 - RKQ1.201217.002-2107130217-release-keys
 vendor/bin/hw/vendor.qti.hardware.qteeconnector@1.0-service|a12cd8a3d326609ee0f0a0cdb5cfc69bd2085f1e
