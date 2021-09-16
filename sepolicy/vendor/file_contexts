@@ -23,6 +23,9 @@
 /dev/goodix_fp                                u:object_r:fingerprint_device:s0
 /dev/vfsspi                                   u:object_r:fingerprint_device:s0
 
+# FPS Info
+/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps    u:object_r:sysfs_fps:s0
+
 # GPS devices
 /dev/bbd_control                              u:object_r:gps_device:s0
 /dev/bbd_patch                                u:object_r:gps_device:s0
